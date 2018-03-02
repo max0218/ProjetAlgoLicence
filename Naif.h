@@ -30,3 +30,6 @@ void RechercheCaseNaif_nn(Grille *G, int i, int j, int *k, int *l);
 
 //Version naive de l'algorithme au plus proche, ecrit sur disque la Solution
 void algorithme_naif(Grille *G, Solution *S);
+
+//Calcule la distance entre deux cases referencees par leurs coordonnees entieres//
+int distance(int i, int j, int k, int l);

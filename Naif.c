@@ -43,6 +43,10 @@ void PlusCourtChemin(Solution *S, int i,int j, int k, int l){
 	S->dern=tmp;
 }
 
+int distance(int i, int j, int k, int l){
+	return abs(i-k)+abs(j-l);
+}
+
 int CaseEstNoire(Grille *G,int i,int j){
 	return (G->T[i][j].fond)==(G->T[i][j].piece);
 }
@@ -68,10 +72,10 @@ void RechercheCaseNaif_c(Grille *G,int c, int i, int j, int *k, int *l){
 	for(line=0;line<G->m;line++){
 		for(col=0;col<G->n;col++){
 			if (c==G->T[line][col].piece){
-				if (bdist>abs(i-line)+abs(j-col)){
+				if (bdist>distance(i,j,line,col)){
 					*k=line;
 					*l=col;
-					bdist=abs(i-line)+abs(j-col);
+					bdist=distance(i,j,line,col);
 				}
 			}
 		}
@@ -85,16 +89,36 @@ void RechercheCaseNaif_nn(Grille *G, int i, int j, int *k, int *l){
 	for(line=0;line<G->m;line++){
 		for(col=0;col<G->n;col++){
 			if ((G->T[line][col].piece>=0)&&(G->T[line][col].piece!=G->T[line][col].fond)){
-				if (bdist>abs(i-line)+abs(j-col)){
+				if (bdist>distance(i,j,line,col)){
 					*k=line;
 					*l=col;
-					bdist=abs(i-line)+abs(j-col);
+					bdist=distance(i,j,line,col);
 				}
 			}
 		}
 	}
 }
 
+
+void algorithme_naif(Grille *G,Solution *S){
+	int k,l,tmp;
+
+	while (G->cptr_noire!=(G->n*G->m)){
+		if(!RobotPortePiece(G)){
+			RechercheCaseNaif_nn(G,G->ir,G->jr,&k,&l);
+			PlusCourtChemin(S,G->ir,G->jr,k,l);
+			changement_case(G,k,l);
+			swap_case(G);
+		}
+		RechercheCaseNaif_c(G,G->T[G->ir][G->jr].robot,G->ir,G->jr,&k,&l);
+		PlusCourtChemin(S,G->ir,G->jr,k,l);
+		changement_case(G,k,l);
+		swap_case(G);
+
+		G->cptr_noire++;
+
+	}
+}
 
 int main(){
 	return 0;
