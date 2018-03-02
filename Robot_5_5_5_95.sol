@@ -1,0 +1,2 @@
+5 5 5 95
+S R L D D D S D R R R R S U U U S U S L L S L L S D S R S D S L U S U R S R R S D D S D S R L U U S L D S D R R S L L L U U U S D D D S D S U S 0

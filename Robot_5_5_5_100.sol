@@ -1,0 +1,2 @@
+5 5 5 100
+R L S R R S L L S R S D D S U U S D S L S R R D S D R S S U U L L S R S R U R S D S U L S D D S D R S D L S U L S D S U L L S D S U U U R R S 0

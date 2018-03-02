@@ -1,0 +1,2 @@
+5 5 5 125
+R S R R S L D S U L S L R R S L L S R R S R R S D S D D S L L L U L S U R S D S D R R S L L S R D R S U U L S L S D U D D S U U S D D L S U R R R D R S U L L S U U U R R S D D D D S U L L L S R R R D S 0
