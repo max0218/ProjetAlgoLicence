@@ -4,6 +4,7 @@
 
 #include "Grille.h"
 #include "Solution.h"
+#include "API_AffGrille.h"
 
 
 //Insertion en fin de liste chainee de la sequence de caractere correspond au plus court chemin 

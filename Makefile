@@ -24,9 +24,10 @@ Checker_SortingRobot.o: Checker_SortingRobot.c Grille.h API_AffGrille.h Solution
 Checker_SortingRobot: Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
 	gcc -o Checker_SortingRobot Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
 
-Naif.o : Naif.c Naif.h 
+Naif.o : Naif.c Naif.h Grille.h API_AffGrille.h Solution.h 
 	gcc -c Naif.c
-Naif : Naif.o Grille.o Solution.o
-	gcc -o Naif Grille.o Solution.o Naif.o entree_sortie.o
+
+Naif : Naif.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
+	gcc -o Naif Naif.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
 clean:
 	rm -f *.o Game_SortingRobot Checker_SortingRobot Naif

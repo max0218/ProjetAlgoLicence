@@ -1,0 +1,2 @@
+4 4 16 1
+S D R D S D R S R S U L U L L S R S D R R S U L S U S R S D L D L L S U R U S D R R S U L L L S 0
