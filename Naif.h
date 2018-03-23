@@ -4,7 +4,6 @@
 
 #include "Grille.h"
 #include "Solution.h"
-#include "API_AffGrille.h"
 
 
 //Insertion en fin de liste chainee de la sequence de caractere correspond au plus court chemin 
@@ -29,7 +28,7 @@ void RechercheCaseNaif_c(Grille *G,int c, int i, int j, int *k, int *l);
 //Retourne la case (k,l) de couleur NOIRE la plus proche de (i,j) au sens de l'algorithme "au plus proche"
 void RechercheCaseNaif_nn(Grille *G, int i, int j, int *k, int *l);
 
-//Version naive de l'algorithme au plus proche, ecrit sur disque la Solution
+//Version naive de l'algorithme au plus proche
 void algorithme_naif(Grille *G, Solution *S);
 
 //Calcule la distance entre deux cases referencees par leurs coordonnees entieres//

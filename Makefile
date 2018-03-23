@@ -1,4 +1,4 @@
-all: Game_SortingRobot Checker_SortingRobot Naif
+all: Game_SortingRobot Checker_SortingRobot Main
 
 entree_sortie.o: entree_sortie.c entree_sortie.h
 	gcc -c entree_sortie.c
@@ -24,10 +24,20 @@ Checker_SortingRobot.o: Checker_SortingRobot.c Grille.h API_AffGrille.h Solution
 Checker_SortingRobot: Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
 	gcc -o Checker_SortingRobot Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
 
-Naif.o : Naif.c Naif.h Grille.h API_AffGrille.h Solution.h 
+Naif.o : Naif.c Naif.h Grille.h  Solution.h 
 	gcc -c Naif.c
 
-Naif : Naif.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Naif Naif.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
+Circulaire.o : Circulaire.c Circulaire.h Grille.h Solution.h
+	gcc -c Circulaire.c
+
+Main.o : Main.c Naif.h Circulaire.h Grille.h API_AffGrille.h Solution.h
+	gcc -c Main.c
+
+Main : Main.o  Naif.o Circulaire.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
+	gcc -o Main Main.o Naif.o Circulaire.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
+
 clean:
-	rm -f *.o Game_SortingRobot Checker_SortingRobot Naif
+	rm -f *.o Game_SortingRobot Checker_SortingRobot Main *.sol
+
+cleansol: 
+	rm -f *.sol
