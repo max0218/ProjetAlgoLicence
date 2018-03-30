@@ -65,6 +65,7 @@ int main(int argc,char**argv){
   printf("Choisissez quel algorithme utiliser pour résoudre la grille\n");
   printf("1 : algorithme_naif\n");
   printf("2 : algorithme_circulaire\n");
+  printf("3 : algorithme_ParCouleur\n");
   scanf(" %d",&ch);
 
   clock_t temps_initial;
@@ -80,6 +81,10 @@ int main(int argc,char**argv){
     case 2:
       //Resolution de la grille par l'algorithme circulaire, ecriture sur la solution
       algorithme_circulaire(&G,&S);
+      break;
+    case 3:
+      //Resolution de la grille par l'algorithme ParCouleur, ecriture
+      algorithme_parcouleur(&G,&S);
       break;
 }
 

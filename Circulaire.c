@@ -33,7 +33,7 @@ void test_circulaire(int i,int j,int L){
 }
 void RechercheCaseCirculaire_c(Grille *G,int c,int i, int j, int *k, int *l){
 	int rayon;
-	for(rayon=1 ; rayon<G->m||rayon<G->n ; rayon++){
+	for(rayon=1 ; rayon<=(G->n+G->m) ; rayon++){
 
 		int line=i-rayon;
 		int lg=j;
@@ -42,15 +42,15 @@ void RechercheCaseCirculaire_c(Grille *G,int c,int i, int j, int *k, int *l){
 		//On cherche circulairement dans les cases au dessus et au niveau de notre robot
 		while(line<=i){
 			//A gauche
-			if ((c==G->T[line][lg].fond)&&(G->T[line][lg].piece!=G->T[line][lg].fond)
-				&&(line>=0)&&(line<G->m)&&(lg>=0)&&(lg<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(lg>=0)	&&	(lg<G->n)	&&	
+				(c==G->T[line][lg].fond)	&&	(G->T[line][lg].piece!=G->T[line][lg].fond)){
 				*k=line;
 				*l=lg;
 				return;
 			}
 			//A droite
-			if ((c==G->T[line][ld].fond)&&(G->T[line][ld].piece!=G->T[line][ld].fond)
-				&&(line>=0)&&(line<G->m)&&(ld>=0)&&(ld<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(ld>=0)	&&	(ld<G->n)	&&	
+				(c==G->T[line][ld].fond)	&&	(G->T[line][ld].piece!=G->T[line][ld].fond)){
 				*k=line;
 				*l=ld;
 				return;
@@ -67,15 +67,15 @@ void RechercheCaseCirculaire_c(Grille *G,int c,int i, int j, int *k, int *l){
 		//On recherche circulairement dans les casses en dessous de notre robot
 		while(line<=i+rayon) {
 			//A gauche
-			if ((c==G->T[line][lg].fond)&&(G->T[line][lg].piece!=G->T[line][lg].fond)
-				&&(line>=0)&&(line<G->m)&&(lg>=0)&&(lg<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(lg>=0)	&&	(lg<G->n)	&&	
+				(c==G->T[line][lg].fond)	&&	(G->T[line][lg].piece!=G->T[line][lg].fond)){
 				*k=line;
 				*l=lg;
 				return;
 			}
 			//A droite
-			if ((c==G->T[line][ld].fond)&&(G->T[line][ld].piece!=G->T[line][ld].fond)
-				&&(line>=0)&&(line<G->m)&&(ld>=0)&&(ld<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(ld>=0)	&&	(ld<G->n)	&&	
+				(c==G->T[line][ld].fond)	&&	(G->T[line][ld].piece!=G->T[line][ld].fond)){
 				*k=line;
 				*l=ld;
 				return;
@@ -91,7 +91,7 @@ void RechercheCaseCirculaire_c(Grille *G,int c,int i, int j, int *k, int *l){
 
 void RechercheCaseCirculaire_nn(Grille *G,int i,int j, int *k, int *l){
 	int rayon;
-	for(rayon=1 ; rayon<G->m||rayon<G->n ; rayon++){
+	for(rayon=0 ; rayon<=(G->n+G->m) ; rayon++){
 
 		int line=i-rayon;
 		int lg=j;
@@ -100,15 +100,15 @@ void RechercheCaseCirculaire_nn(Grille *G,int i,int j, int *k, int *l){
 		//On cherche circulairement dans les cases au dessus et au niveau de notre robot
 		while(line<=i){
 			//A gauche
-			if ((G->T[line][lg].piece>=0)&&(G->T[line][lg].piece!=G->T[line][lg].fond)
-				&&(line>=0)&&(line<G->m)&&(lg>=0)&&(lg<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(lg>=0)	&&	(lg<G->n)	&&
+				(G->T[line][lg].piece>=0)	&&	(G->T[line][lg].piece!=G->T[line][lg].fond)){
 				*k=line;
 				*l=lg;
 				return;
 			}
 			//A droite
-			if ((G->T[line][ld].piece>=0)&&(G->T[line][ld].piece!=G->T[line][ld].fond)
-				&&(line>=0)&&(line<G->m)&&(ld>=0)&&(ld<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(ld>=0)	&&	(ld<G->n)	&&	
+				(G->T[line][ld].piece>=0)	&&	(G->T[line][ld].piece!=G->T[line][ld].fond)){
 				*k=line;
 				*l=ld;
 				return;
@@ -125,15 +125,15 @@ void RechercheCaseCirculaire_nn(Grille *G,int i,int j, int *k, int *l){
 		//On recherche circulairement dans les casses en dessous de notre robot
 		while(line<=i+rayon) {
 			//A gauche
-			if ((G->T[line][lg].piece>=0)&&(G->T[line][lg].piece!=G->T[line][lg].fond)
-				&&(line>=0)&&(line<G->m)&&(lg>=0)&&(lg<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(lg>=0)	&&	(lg<G->n)	&&
+				(G->T[line][lg].piece>=0)	&&	(G->T[line][lg].piece!=G->T[line][lg].fond)){
 				*k=line;
 				*l=lg;
 				return;
 			}
 			//A droite
-			if ((G->T[line][ld].piece>=0)&&(G->T[line][ld].piece!=G->T[line][ld].fond)
-				&&(line>=0)&&(line<G->m)&&(ld>=0)&&(ld<G->n)){
+			if ((line>=0)	&&	(line<G->m)	&&	(ld>=0)	&&	(ld<G->n)	&&	
+				(G->T[line][ld].piece>=0)	&&	(G->T[line][ld].piece!=G->T[line][ld].fond)){
 				*k=line;
 				*l=ld;
 				return;
@@ -159,9 +159,9 @@ void algorithme_circulaire(Grille *G, Solution *S){
 		else{
 			RechercheCaseCirculaire_c(G,G->T[G->ir][G->jr].robot,G->ir,G->jr,&k,&l);
 		}
-		printf("position du robot (%d,%d)\t",G->ir,G->jr);
-		printf("couleur de la piece %d \n",G->T[G->ir][G->jr].robot);
-		getchar();
+		//printf("position du robot (%d,%d)\t",G->ir,G->jr);
+		//printf("couleur de la piece %d \n",G->T[G->ir][G->jr].robot);
+		//getchar();
 		PlusCourtChemin(S,G->ir,G->jr,k,l);
 		changement_case(G,k,l);
 		swap_case(G);

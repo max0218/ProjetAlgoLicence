@@ -30,11 +30,14 @@ Naif.o : Naif.c Naif.h Grille.h  Solution.h
 Circulaire.o : Circulaire.c Circulaire.h Grille.h Solution.h
 	gcc -c Circulaire.c
 
-Main.o : Main.c Naif.h Circulaire.h Grille.h API_AffGrille.h Solution.h
+ParCouleur.o : ParCouleur.c ParCouleur.h Grille.h Solution.h
+	gcc -c ParCouleur.c
+
+Main.o : Main.c Naif.h Circulaire.h ParCouleur.h Grille.h API_AffGrille.h Solution.h
 	gcc -c Main.c
 
-Main : Main.o  Naif.o Circulaire.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Main Main.o Naif.o Circulaire.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
+Main : Main.o  Naif.o Circulaire.o ParCouleur.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
+	gcc -o Main Main.o Naif.o Circulaire.o ParCouleur.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
 
 clean:
 	rm -f *.o Game_SortingRobot Checker_SortingRobot Main *.sol
