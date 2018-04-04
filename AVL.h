@@ -17,13 +17,13 @@ typedef struct s_avltree{
 
 
 //Retourne la hauteur d'un noeud
-int AVL_hauteur(AVL r);
+int AVL_hauteur(AVL *r);
 
 //Retourne le maximum entre deux int
 int maxHauteur(int a,int b);
 
 //Met à jour la hauteur d'un noeud
-void majHauteur(AVL r);
+void majHauteur(AVL *r);
 
 // Effectue une rotation droite de l'arbre
 void rotationDroite(AVL *r);

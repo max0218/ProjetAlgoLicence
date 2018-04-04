@@ -141,7 +141,7 @@ void algorithme_parcouleur(Grille *G, Solution *S){
 		//printf("position du robot (%d,%d)\t",G->ir,G->jr);
 		//printf("couleur de la piece %d \n",G->T[G->ir][G->jr].robot);
 		//getchar();
-		PlusCourtChemin(S,G->ir,G->jr,i,j);
+		PlusCourtChemin(S,G->ir,G->jr,i,j); // A DECONNECTER POUR TESTER DE GRANDES GRILLES
 		changement_case(G,i,j);
 		swap_case(G);
 	}

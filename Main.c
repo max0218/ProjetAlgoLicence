@@ -66,6 +66,7 @@ int main(int argc,char**argv){
   printf("1 : algorithme_naif\n");
   printf("2 : algorithme_circulaire\n");
   printf("3 : algorithme_ParCouleur\n");
+  printf("4 : algorithme par AVL\n");
   scanf(" %d",&ch);
 
   clock_t temps_initial;
@@ -84,6 +85,10 @@ int main(int argc,char**argv){
       break;
     case 3:
       //Resolution de la grille par l'algorithme ParCouleur, ecriture
+      algorithme_parcouleur(&G,&S);
+      break;
+    case 4:
+      //Resolution de la grille par l'algorithme AVL, ecriture
       algorithme_parcouleur(&G,&S);
       break;
 }
