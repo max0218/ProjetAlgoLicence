@@ -8,9 +8,11 @@
 
 typedef struct celluleLDC{
 
-	int i,j;
+	int i;
 
-	struct celluleLDC* prec; /*pointeur sur l'element precedend de la liste*/
+	int j;
+
+	struct celluleLDC* prec; /*pointeur sur l'element precedent de la liste*/
 
 	struct celluleLDC* suiv; /*pointeur sur l'element suivant de la liste*/
 } CelluleLDC;

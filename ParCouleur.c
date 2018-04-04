@@ -57,6 +57,7 @@ void LDCenleverCellule(LDC* ldc, CelluleLDC* cel){	//qui supprime une cellule a 
 			free(cel);
 		}
 		else{
+
 			cel->suiv->prec=cel->prec;
 			cel->prec->suiv=cel->suiv;
 			free(cel);
@@ -85,41 +86,61 @@ void LDCdesalloue(LDC *ldc){	// qui desalloue toute la liste (si elle n'est pas 
 CelluleLDC* LDCrechercherPlusProcheCase(LDC* ldc, int i, int j){	//recherche dans une liste LDC la premirer case la plus proche de (i,j)
 	CelluleLDC* courante=ldc->premier;
 	CelluleLDC* ppc=courante;
-	int dist=abs(ppc->i-i)+abs(ppc->j-j);
+	// on calcule la distance enttre la cellule ppc et notre robot
+	int dist=distance(ppc->i,ppc->j,i,j);
+
 	while(courante!=ldc->dernier){
 		courante=courante->suiv;
-		if (abs(courante->i-i)+abs(courante->j+j)<dist){
+		// Si la distance entre cette nouvelle case et notre robot est plus faible, on la garde
+		if (distance(courante->i,courante->j,i,j)<dist){
 			ppc=courante;
-			dist=abs(ppc->i-i)+abs(ppc->j-j);
+			//MàJ distance avec la nouvelle case
+			dist=distance(ppc->i,ppc->j,i,j);
 		}
 	}
 	return ppc;
 }
 
+
 void algorithme_parcouleur(Grille *G, Solution *S){
-	LDC *TC[G->nbcoul];
+
+	LDC** TC=malloc(sizeof(LDC)*G->nbcoul);
 	int i,j;
-	for(i=0;i<G->nbcoul;i++){
-		LDCInitialise(TC[i]);
+
+	// Initialisation du tableau de couleurs
+	for (i = 0; i < G->nbcoul; i++)
+	{
+		LDC * ldc = malloc(sizeof(LDC));
+
+		LDCInitialise(ldc);
+		TC[i] = ldc;
+
 	}
-	for (i=0;i<G->n;i++){
-		for (j=0;j<G->m;j++){
-			LDCInsererEnFin(TC[G->T[i][j].fond],i,j);
+
+	//Insertion de toutes les cases de la grille en fonction de leur couleur
+	for (i=0;i<G->m;i++){
+
+		for (j=0;j<G->n;j++){
+
+			LDCInsererEnFin((TC[G->T[i][j].fond]),i,j);
 		}
 	}
+
+
 	while (G->cptr_noire<(G->n*G->m)){
 		if(!RobotPortePiece(G)){
 			RechercheCaseCirculaire_nn(G,G->ir,G->jr,&i,&j);
-		}
-		else{
-			CelluleLDC *cel=LDCrechercherPlusProcheCase(TC[G->T[G->ir][G->jr].robot],G->ir,G->jr);
+		}else{
+			int couleurdurobot=G->T[G->ir][G->jr].robot;
+			//On recherche la case la plus proche pour une couleur donnee
+			CelluleLDC *cel=LDCrechercherPlusProcheCase((TC[couleurdurobot]),G->ir,G->jr);
 			i=cel->i;
 			j=cel->j;
-			LDCenleverCellule(TC[G->T[G->ir][G->jr].robot],cel);
+			LDCenleverCellule((TC[couleurdurobot]),cel);
 		}
-		printf("position du robot (%d,%d)\t",G->ir,G->jr);
-		printf("couleur de la piece %d \n",G->T[G->ir][G->jr].robot);
-		getchar();
+		//printf("position du robot (%d,%d)\t",G->ir,G->jr);
+		//printf("couleur de la piece %d \n",G->T[G->ir][G->jr].robot);
+		//getchar();
 		PlusCourtChemin(S,G->ir,G->jr,i,j);
 		changement_case(G,i,j);
 		swap_case(G);
