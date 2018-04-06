@@ -36,9 +36,30 @@ AVL* creationNoeud(int contenu,AVL* fd,AVL* fg);
 
 //Equilibre un AVL
 AVL * Equilibre(AVL *r);
+
 //Ajout d'une valeur dans l'AVL
 AVL * Ajout(int contenu, AVL *r);
 
 //Cherche un entier dans l'AVL et le supprime s'il existe
 AVL * Suppression(int contenu,AVL *r);
 
+//Affiche l'AVL dans l'ordre croissant
+void Affichageprefixe(AVL *r);
+
+//Initialise une matrice d'AVL de taille nb_couleurs * nb_lignes
+AVL*** InitialisationMatrice(Grille *G);
+
+// Trouve tous les j tels que la case (i,j) contient la couleur c, et stock dans un AVL
+AVL* ConstructionAVL(Grille* G,int c,int i);
+
+//Construit la matrice M[c][i] tq les cases (i,j) contiennent la couleur c 
+AVL *** ConstructionMatrice(Grille * G);
+
+//Retourne la case la plus proche d'une case (k,l) pour une certaine couleur, sur une ligne
+int j_plus_proche(Grille * G,AVL *r, int j );
+
+//Recherche la case la plus proche de (i,j) de couleur c dans la matrice d'AVL
+void case_plus_proche_c(Grille *G,AVL ***M,int c,int i,int j,int *k,int *l);
+
+//Resoud la grille avec l'algorithme par AVL
+void algorithme_AVL(Grille *G,Solution *S);
