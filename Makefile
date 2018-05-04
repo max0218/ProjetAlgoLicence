@@ -1,55 +1,10 @@
-all: Game_SortingRobot Checker_SortingRobot Main Maintest
+all : Maingraph
 
-entree_sortie.o: entree_sortie.c entree_sortie.h
-	gcc -c entree_sortie.c
+Maingraph.o : Maingraph.c Grille.h ListeDC.h Graphe.h Circuit.h
+	gcc -c Maingraph.c
 
-Solution.o: Solution.c Solution.h entree_sortie.h
-	gcc -c Solution.c
+Maingraph : Maingraph.o  Grille.o  ListeDC.o Graphe.o Circuit.o
+	gcc -gdbb -o Maingraph Maingraph.o  Grille.o  ListeDC.o Graphe.o Circuit.o
 
-Grille.o: Grille.c Grille.h Solution.h
-	gcc -c Grille.c
-
-API_AffGrille.o: API_AffGrille.c API_AffGrille.h Grille.h
-	gcc -c API_AffGrille.c
-
-Game_SortingRobot.o: Game_SortingRobot.c Grille.h API_AffGrille.h Solution.h 
-	gcc -c Game_SortingRobot.c 
-
-Game_SortingRobot: Game_SortingRobot.o API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Game_SortingRobot Game_SortingRobot.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
-
-Checker_SortingRobot.o: Checker_SortingRobot.c Grille.h API_AffGrille.h Solution.h
-	gcc -c Checker_SortingRobot.c
-
-Checker_SortingRobot: Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Checker_SortingRobot Checker_SortingRobot.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
-
-Naif.o : Naif.c Naif.h Grille.h  Solution.h 
-	gcc -c Naif.c
-
-Circulaire.o : Circulaire.c Circulaire.h Grille.h Solution.h
-	gcc -c Circulaire.c
-
-ParCouleur.o : ParCouleur.c ParCouleur.h Grille.h Solution.h
-	gcc -c ParCouleur.c
-
-AVL.o : AVL.c AVL.h Grille.h Solution.h
-	gcc -c AVL.c
-
-Main.o : Main.c Naif.h Circulaire.h ParCouleur.h AVL.h Grille.h API_AffGrille.h Solution.h
-	gcc -c Main.c
-
-Main : Main.o  Naif.o Circulaire.o ParCouleur.o AVL.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Main Main.o Naif.o Circulaire.o ParCouleur.o AVL.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
-
-Maintest.o : Maintest.c Naif.h Circulaire.h ParCouleur.h AVL.h Grille.h API_AffGrille.h Solution.h
-	gcc -c Maintest.c
-
-Maintest : Maintest.o  Naif.o Circulaire.o ParCouleur.o AVL.o  API_AffGrille.o Grille.o Solution.o entree_sortie.o
-	gcc -o Maintest Maintest.o Naif.o Circulaire.o ParCouleur.o AVL.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
-
-clean:
-	rm -f *.o Game_SortingRobot Checker_SortingRobot Main Maintest *.sol
-
-cleansol: 
-	rm -f *.sol
+clean :
+	rm -f *.o Maingraph
