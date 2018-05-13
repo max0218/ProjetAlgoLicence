@@ -50,6 +50,28 @@ Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc){
 	LC->nb_circuit++;
 }
 
+//Liberation memoire cell_circuit
+void Cell_circuit_free(Lcircuit * circuit, Cell_circuit * c){
+
+	Cell_circuit * precC=c->prec;
+	Cell_circuit * suivC=c->suiv;
+
+	if (precC==NULL) 
+	    circuit->premier=suivC;
+	else 
+	    precC->suiv=suivC;
+	if (suivC==NULL) 
+	    circuit->dernier=precC;
+	else 
+		suivC->prec=precC;
+	Cell_free(c);
+}
+
+//Liberation memoire cell
+void Cell_free(Cell_circuit * c){
+	LDCdesalloue(c->L);
+	free(c);
+}
 //Recherche d'un circuit à partir d'un sommet 
 Cell_circuit* Sommet_Rech_Circuit(Graphe* H,Sommet* somm){
 

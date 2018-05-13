@@ -26,6 +26,12 @@ Lcircuit* Lcircuit_Init();
 //Insertion en queue dans un Lcircuit
 Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc);
 
+//Liberation memoire cell_circuit
+void Cell_circuit_free(Lcircuit * circuit, Cell_circuit * c);
+
+//Liberation memoire cell
+void Cell_free(Cell_circuit * c);
+
 //Permet d'afficher un ensemble de circuits couvrant les sommets non-noirs de H
 void Graphe_Rech_Circuit(Graphe *H);
 
