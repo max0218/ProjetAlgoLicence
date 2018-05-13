@@ -38,4 +38,20 @@ void Graphe_Rech_Circuit(Graphe *H);
 //Retourne une liste de circuits de H couvrant les sommets non-noirs
 void Graphe_Rech_Circuit_v2(Graphe *H, Lcircuit *LC);
 
+//Liste de circuit LC triée et contient les valeurs jmin et jmax
+void CalculJminJmax(Lcircuit *LC);
+
+//Insere L,R,S dans une solution S (en tete si S est NULL sinon apres le pointeur c d'une case de S),
+//retourne le pointeur de la cellule créée et update Tref
+Cell_char* Ajout_action_apres_c(Solution* S,Cell_char* c,int j, char a,Cell_char** Tref);
+
+//Insere le chemin de R ou L dans la solution S entre la case j et l, retourne un pointeur sur la dernière cellule ajoutée
+Cell_char* pluscourtchemin_apres_c(Solution *S,Cell_char* c, int j,int l,Cell_char** Tref);
+
+//Insere une sequence de déplacements L,R,S du robot dans S correspondant au circuit c
+void Ajout_circuit_dans_solution(LDC* L,Solution* S,Cell_char* c,Cell_char** Tref,int* Jdroite);
+
+//algorithme de Daniel Graf
+void algorithme_circuit_CasLigne1x1(Grille *G,Solution *S);
+
 #endif
