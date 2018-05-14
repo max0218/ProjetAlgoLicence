@@ -24,7 +24,7 @@ Cell_circuit* CC_Init(int jmin,int jmax);
 Lcircuit* Lcircuit_Init();
 
 //Insertion en queue dans un Lcircuit
-Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc);
+void Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc);
 
 //Liberation memoire cell_circuit
 void Cell_circuit_free(Lcircuit * circuit, Cell_circuit * c);

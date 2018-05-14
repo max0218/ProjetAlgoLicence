@@ -45,7 +45,11 @@ int main(int argc,char**argv){
    Graphe_creation(&G, &H);
    Graphe_affiche(&H);
 
-   Graphe_Rech_Circuit(&H);
+//Création de la liste de circuits
+Lcircuit* LC=Lcircuit_Init();
+
+//Recherche des circuits dans le graphe
+Graphe_Rech_Circuit_v2(&H,LC);
    
 return 0;
 }

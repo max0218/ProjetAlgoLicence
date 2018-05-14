@@ -37,7 +37,7 @@ Lcircuit* Lcircuit_Init(){
 }
 
 //Insertion en queue dans un Lcircuit
-Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc){
+void Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc){
 
 	if(LC->premier==NULL){
 		LC->premier=cc;
@@ -51,6 +51,7 @@ Insertion_en_queue_Lcircuit(Lcircuit *LC,Cell_circuit* cc){
 }
 
 //Liberation memoire cell_circuit
+/*
 void Cell_circuit_free(Lcircuit * circuit, Cell_circuit * c){
 
 	Cell_circuit * precC=c->prec;
@@ -72,15 +73,20 @@ void Cell_free(Cell_circuit * c){
 	LDCdesalloue(c->L);
 	free(c);
 }
-//Recherche d'un circuit à partir d'un sommet 
+*/
+//Recherche d'un circuit à partir d'un sommet et màj jmin et jmax
 Cell_circuit* Sommet_Rech_Circuit(Graphe* H,Sommet* somm){
+
+	if(somm->visit==0){	// Si ce sommet est déjà visité
+		return NULL;
+	}
 
 	Sommet* psom=somm;
 	Cell_circuit* c=CC_Init(psom->j,0);	//Initialisation d'une liste chainée de circuit, jmin est le j du premier sommet(donc le plus à gauche)
 	int jmax=0;
 
-	while(psom->visit!=0){
-		LDCInsererEnFin(c->L,psom->i,psom->j);
+	while(psom->visit	==	-1){
+		LDCInsererEnFin(&(c->L),psom->i,psom->j);
 		psom->visit=0;
 
 		if(psom->j>jmax){
@@ -90,7 +96,7 @@ Cell_circuit* Sommet_Rech_Circuit(Graphe* H,Sommet* somm){
 		psom=psom->Lsucc->succ;
 	}
 	c->jmax=jmax;
-	LDCafficher(c->L);
+	LDCafficher(&(c->L));
 	printf("Fin du circuit \n");
 
 	return c;
@@ -102,13 +108,13 @@ void Graphe_Rech_Circuit(Graphe *H){
 	//Sommet *scour;
 	//Arc *acour;
 	//On pourrait réduire le nombre d'itérations 
-	for(i=0;i<H->n;i++){
+	for(i=0;i<H->m;i++){
 		
-		for(j=0;j<H->m;j++){
+		for(j=0;j<H->n;j++){
 
 			if(H->Tsom[i][j]->visit==-1){
 			
-				Sommet_Rech_Circuit(H,H->TSom[i][j]); // Affiche un circuit 
+				Sommet_Rech_Circuit(H,H->Tsom[i][j]); // Affiche un circuit 
 
 			}
 		}
@@ -118,20 +124,26 @@ void Graphe_Rech_Circuit(Graphe *H){
 
 //Retourne une liste de circuits de H couvrant les sommets non-noirs
 void Graphe_Rech_Circuit_v2(Graphe *H, Lcircuit *LC){
-
-	for(i=0;i<H->n;i++){
-		
-		for(j=0;j<H->m;j++){
-
-			if(H->Tsom[i][j]->visit==-1){
-
-				cell_circuit *cc=CC_init(0,0);		//Initialisation d'une liste chainée de circuit
-
-				cc=Sommet_Rech_Circuit(H,H->Tsom[i][j]);	//Un circuit de sommets non-noirs
-
-				Insertion_en_queue_Lcircuit(LC,cc); //Insertion du circuit dans une liste
+	int i,j;
+	for(i=0	;	i<H->m	;	i++){
+		//printf("début itération i=%d \n",i);
+		for(j=0	;	j<H->n	;	j++){
+			//printf("début itération j=%d \n",j);
+			if(H->Tsom[i][j]->Lsucc==NULL){
+				H->Tsom[i][j]->visit=-2;
 			}
+			//printf("Valeur de visit : %d\n",H->Tsom[i][j]->visit);
+			if(H->Tsom[i][j]->visit==-1){
+				
+				//printf("Avant la recherche du circuit\n");
+				Cell_circuit* cc = Sommet_Rech_Circuit(H,H->Tsom[i][j]);	//Un circuit de sommets non-noirs
+				//printf("Avant l'insertion\n");
+				Insertion_en_queue_Lcircuit(LC,cc); //Insertion du circuit dans une liste
+				//printf("Insertion circuit dans liste\n");
+			}
+			//printf("fin itération j=%d \n",j);
 		}
+		//printf("fin itération i=%d\n",i);
 	}
 }
 
