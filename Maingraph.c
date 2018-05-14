@@ -6,6 +6,7 @@
 #include "Graphe.h"
 #include "ListeDC.h"
 #include "Circuit.h"
+#include "Solution.h"
 
 
 int main(int argc,char**argv){
@@ -39,17 +40,24 @@ int main(int argc,char**argv){
   Grille_allocation(&G);
   Gene_Grille(&G,graine);
 
-/* G�n�ration du graphe et Affichage*/
 
-   Graphe_init(&H, G.m,G.n);
-   Graphe_creation(&G, &H);
-   Graphe_affiche(&H);
+  /* G�n�ration du graphe et Affichage*/
 
-//Création de la liste de circuits
-Lcircuit* LC=Lcircuit_Init();
+	Graphe_init(&H, G.m,G.n);
+	Graphe_creation(&G, &H);
+	Graphe_affiche(&H);
 
-//Recherche des circuits dans le graphe
-Graphe_Rech_Circuit_v2(&H,LC);
+	//Création de la liste de circuits
+	Lcircuit* LC=Lcircuit_Init();
+
+	//Recherche des circuits dans le graphe
+	Graphe_Rech_Circuit_v2(&H,LC);
+
+	//Initialisation de la solution
+	Solution_init(&S);
+
+  //algortithme de Daniel Graf
+  algorithme_circuit_CasLigne1x1(&G,&S,LC);
    
 return 0;
 }

@@ -52,6 +52,6 @@ Cell_char* pluscourtchemin_apres_c(Solution *S,Cell_char* c, int j,int l,Cell_ch
 void Ajout_circuit_dans_solution(LDC* L,Solution* S,Cell_char* c,Cell_char** Tref,int* Jdroite);
 
 //algorithme de Daniel Graf
-void algorithme_circuit_CasLigne1x1(Grille *G,Solution *S);
+void algorithme_circuit_CasLigne1x1(Grille *G,Solution *S,Lcircuit* LC);
 
 #endif

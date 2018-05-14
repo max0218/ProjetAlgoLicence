@@ -105,9 +105,7 @@ Cell_circuit* Sommet_Rech_Circuit(Graphe* H,Sommet* somm){
 //Permet d'afficher un ensemble de circuits couvrant les sommets non-noirs de H
 void Graphe_Rech_Circuit(Graphe *H){
 	int i,j;
-	//Sommet *scour;
-	//Arc *acour;
-	//On pourrait réduire le nombre d'itérations 
+
 	for(i=0;i<H->m;i++){
 		
 		for(j=0;j<H->n;j++){
@@ -148,6 +146,7 @@ void Graphe_Rech_Circuit_v2(Graphe *H, Lcircuit *LC){
 }
 
 //Liste de circuit LC triée et contient les valeurs jmin et jmax
+//Tout est fait dans la fonction Sommet_rech_circuit
 void CalculJminJmax(Lcircuit *LC){
 
 	if(LC==NULL){
@@ -165,6 +164,11 @@ void CalculJminJmax(Lcircuit *LC){
 //retourne le pointeur de la cellule créée et update Tref
 Cell_char* Ajout_action_apres_c(Solution* S,Cell_char* c,int j, char a,Cell_char** Tref){
 
+	if(c==NULL){	//Insertion en tête de liste S
+		Ajout_action(S,a);
+	}else{ //Insertion après le pointeur c d'une case de S
+
+	}
 }
 
 //Insere le chemin de R ou L dans la solution S entre la case j et l, retourne un pointeur sur la dernière cellule ajoutée
@@ -178,6 +182,29 @@ void Ajout_circuit_dans_solution(LDC* L,Solution* S,Cell_char* c,Cell_char** Tre
 }
 
 //algorithme de Daniel Graf
-void algorithme_circuit_CasLigne1x1(Grille *G,Solution *S){
+void algorithme_circuit_CasLigne1x1(Grille *G,Solution *S,Lcircuit* LC){
 
+	int i;
+	//Tref contient NULL si la case i n'a pas été rencontrée par le robot
+	Cell_char* Tref[G->n];
+	for(i=0;i<G->n;i++){
+		Tref[i]=NULL;
+	}
+
+	int Jdroite=0;	//Indice de la case la plus à droite visitée par le robot
+
+	Cell_circuit* cc=LC->premier;
+	int Drapeau=0;
+	do{
+		if(Tref[cc->jmin]==NULL){
+			Drapeau=1;
+			
+		}
+
+		if(Drapeau==1){
+			Drapeau=0;
+
+		}
+		cc=cc->suiv;
+	}while(cc!=LC->dernier);	
 }
