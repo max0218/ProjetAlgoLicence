@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <assert.h>
+
 
 #include "Grille.h"
 #include "Graphe.h"
@@ -56,8 +58,27 @@ int main(int argc,char**argv){
 	//Initialisation de la solution
 	Solution_init(&S);
 
+
+  clock_t temps_initial;
+  clock_t temps_final;
+  double temps_cpu;
+  temps_initial=clock();
+
   //algortithme de Daniel Graf
   algorithme_circuit_CasLigne1x1(&G,&S,LC);
+
+
+  temps_final=clock();
+  temps_cpu=((double) (temps_final - temps_initial))/CLOCKS_PER_SEC;
+
+  Ecriture_Disque(G.m, G.n, G.nbcoul, graine, &S);
+  printf("\nVous avez gagne en %d pas\n",S.cptr_pas);
+  printf("\nEcriture de la solution sur disque\n\n");
+
+
+	Affiche(&S);
+ 	printf("TAILLE : %d,TEMPS : %f \n", G.n*G.m,temps_cpu);
+	return 0;
    
 return 0;
 }

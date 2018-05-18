@@ -166,19 +166,59 @@ Cell_char* Ajout_action_apres_c(Solution* S,Cell_char* c,int j, char a,Cell_char
 
 	if(c==NULL){	//Insertion en tête de liste S
 		Ajout_action(S,a);
+		Tref[j]=S->prem;
+		return S->prem;
 	}else{ //Insertion après le pointeur c d'une case de S
 
+		Cell_char* cour=S->prem;
+		while(cour!=S->dern){
+
+			if(cour==c){
+
+				Cell_char *nouv=(Cell_char*) malloc(sizeof(Cell_char));
+ 				nouv->a=a;
+  				nouv->suiv=c->suiv;
+				c->suiv=nouv;
+
+ 				if (nouv->a!='S') S->cptr_pas++;
+				Tref[j]=nouv; // La derniere case visitee par le robot
+				return nouv; 
+			}
+			cour=cour->suiv;
+		}
 	}
+	return NULL; //Si la cellule pointee n'existait pas
 }
 
 //Insere le chemin de R ou L dans la solution S entre la case j et l, retourne un pointeur sur la dernière cellule ajoutée
 Cell_char* pluscourtchemin_apres_c(Solution *S,Cell_char* c, int j,int l,Cell_char** Tref){
-
+	int i;
+	Cell_char* last;
+	if(j<l){
+		for(i=j;j<l;i++){
+			last=Ajout_action_apres_c(S,Tref[i],i,'R',Tref);
+		}
+	}else{
+		for(i=j;j>l;i--){
+			last=Ajout_action_apres_c(S,Tref[i],i,'L',Tref);
+		}
+	}
+	return last;//Derniere cellule ajoutée à S
 }
 
 //Insere une sequence de déplacements L,R,S du robot dans S correspondant au circuit c
 void Ajout_circuit_dans_solution(LDC* L,Solution* S,Cell_char* c,Cell_char** Tref,int* Jdroite){
 
+	CelluleLDC* cell=L->premier;
+	Cell_char* last=c;
+	do{
+
+	last=pluscourtchemin_apres_c(S,last,cell->i,cell->j,Tref);
+	last=Ajout_action_apres_c(S,last,cell->j,'S',Tref);
+	if(cell->j >(*Jdroite)){
+		*Jdroite=cell->j;	//MAJ Jdroite si on va plus à droite que l'on a jamais été
+	}
+	}while(cell!=L->dernier);	
 }
 
 //algorithme de Daniel Graf
